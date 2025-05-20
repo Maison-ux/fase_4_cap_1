@@ -1,4 +1,3 @@
-# db/postgres_adapter.py
 import psycopg2
 from psycopg2 import sql
 
@@ -69,7 +68,6 @@ class PostgresAdapter:
             columns = data.keys()
             values = [data[column] for column in columns]
 
-            # Determinar o nome da coluna PK com base no nome da tabela
             if table == 'plantacoes':
                 pk_column = 'id_plantacao'
             elif table == 'sensores':
@@ -77,10 +75,8 @@ class PostgresAdapter:
             elif table == 'dados_sensores':
                 pk_column = 'id_dado_sensor'
             else:
-                # Caso padrão (pode não funcionar para todas as tabelas)
                 pk_column = f"id_{table[:-1]}"
 
-            # Construir a query de inserção
             insert_query = sql.SQL("INSERT INTO {} ({}) VALUES ({}) RETURNING {};").format(
                 sql.Identifier(table),
                 sql.SQL(', ').join(map(sql.Identifier, columns)),
@@ -100,7 +96,6 @@ class PostgresAdapter:
     def update(self, table, data, condition):
         """Atualiza registros na tabela."""
         try:
-            # Construir o conjunto de atualizações
             set_items = []
             values = []
 
@@ -108,7 +103,6 @@ class PostgresAdapter:
                 set_items.append(sql.SQL("{} = %s").format(sql.Identifier(key)))
                 values.append(value)
 
-            # Construir a query completa
             update_query = sql.SQL("UPDATE {} SET {} WHERE {}").format(
                 sql.Identifier(table),
                 sql.SQL(', ').join(set_items),
@@ -127,7 +121,6 @@ class PostgresAdapter:
     def delete(self, table, condition):
         """Exclui registros da tabela."""
         try:
-            # Construir a query de exclusão
             delete_query = sql.SQL("DELETE FROM {} WHERE {}").format(
                 sql.Identifier(table),
                 sql.SQL(condition)

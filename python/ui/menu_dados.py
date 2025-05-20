@@ -1,4 +1,3 @@
-# ui/menu_dados.py
 import os
 from datetime import datetime
 
@@ -124,7 +123,6 @@ class MenuDados:
             print("Valor inválido. Usando 0.0")
             valor_sensor = 0.0
 
-        # Solicitar data e hora da leitura (opcional, usa a atual se não informada)
         data_hora_str = input("Data e hora da leitura (AAAA-MM-DD HH:MM:SS, pressione ENTER para usar a atual): ")
         try:
             data_hora = datetime.strptime(data_hora_str, '%Y-%m-%d %H:%M:%S') if data_hora_str else datetime.now()
@@ -286,7 +284,6 @@ class MenuDados:
         
         print(f"\nEditando leitura ID {dado_data[0]} do sensor '{dado_data[4]}' da plantação '{dado_data[5]}'")
         
-        # Permitir editar apenas o valor e a data/hora (não o sensor associado)
         try:
             valor_str = input(f"Novo valor (atual: {dado_data[3]}): ")
             valor = float(valor_str) if valor_str else dado_data[3]

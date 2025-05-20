@@ -1,7 +1,6 @@
 import os
 import subprocess
 
-# Definir a variável TERM se não estiver definida
 if 'TERM' not in os.environ:
     os.environ['TERM'] = 'xterm'
 
@@ -32,11 +31,9 @@ def exibir_boas_vindas():
     input("\nPressione ENTER para continuar...")
 
 def main():
-    # Exibir mensagem de boas-vindas
     exibir_boas_vindas()
 
     try:
-        # Configurações de conexão com o banco de dados
         db_config = {
             'host': 'localhost',
             'port': 5432,
@@ -45,19 +42,15 @@ def main():
             'password': 'postgres'
         }
 
-        # Inicializar o adaptador de banco de dados
-        db_adapter = PostgresAdapter(**db_config)  # Use ** para desempacotar o dicionário como argumentos
+        db_adapter = PostgresAdapter(**db_config)
         db_adapter.conectar()
 
-        # Inicializar os serviços
         plantacao_service = PlantacaoService(db_adapter)
         sensor_service = SensorService(db_adapter)
         dado_sensor_service = DadoSensorService(db_adapter)
 
-        # Inicializar o menu principal
         menu_principal = MenuPrincipal(plantacao_service, sensor_service, dado_sensor_service)
 
-        # Executar o menu principal
         menu_principal.executar()
 
     except Exception as e:
@@ -70,7 +63,6 @@ def main():
         print("Entre em contato com o suporte técnico para obter ajuda.")
 
     finally:
-        # Garantir que a conexão com o banco de dados seja fechada
         if 'db_adapter' in locals() and db_adapter:
             db_adapter.desconectar()
 

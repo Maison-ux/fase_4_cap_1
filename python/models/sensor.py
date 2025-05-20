@@ -1,4 +1,3 @@
-# models/sensor.py
 class Sensor:
     def __init__(self, id_plantacao, nome, data_instalacao, id_sensor=None):
         self.id_sensor = id_sensor

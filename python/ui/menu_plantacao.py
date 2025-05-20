@@ -1,7 +1,8 @@
-# ui/menu_plantacao.py
 import os
 from datetime import date
-from models.plantacao import Plantacao
+
+from python.models.plantacao import Plantacao
+
 
 class MenuPlantacao:
     def __init__(self, plantacao_service):

@@ -1,7 +1,8 @@
-# ui/menu_sensor.py
 import os
 from datetime import date
-from models.sensor import Sensor
+
+from python.models.sensor import Sensor
+
 
 class MenuSensor:
     def __init__(self, plantacao_service, sensor_service):

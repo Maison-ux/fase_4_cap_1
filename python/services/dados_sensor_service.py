@@ -1,4 +1,3 @@
-# services/dado_sensor_service.py
 class DadoSensorService:
     def __init__(self, db):
         self.db = db

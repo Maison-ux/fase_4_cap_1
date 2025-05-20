@@ -1,4 +1,3 @@
-# models/dados_sensor.py
 class DadoSensor:
     def __init__(self, id_sensor, data_hora_leitura, valor_sensor, id_dado_sensor=None):
         self.id_dado_sensor = id_dado_sensor

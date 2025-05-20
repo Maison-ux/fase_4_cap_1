@@ -1,8 +1,9 @@
-# ui/menu_principal.py
 import os
-from ui.menu_plantacao import MenuPlantacao
-from ui.menu_sensor import MenuSensor
-from ui.menu_dados import MenuDados
+
+from python.ui.menu_dados import MenuDados
+from python.ui.menu_plantacao import MenuPlantacao
+from python.ui.menu_sensor import MenuSensor
+
 
 class MenuPrincipal:
     def __init__(self, plantacao_service, sensor_service, dado_sensor_service):

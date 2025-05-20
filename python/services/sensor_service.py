@@ -1,4 +1,3 @@
-# services/sensor_service.py
 class SensorService:
     def __init__(self, db):
         self.db = db

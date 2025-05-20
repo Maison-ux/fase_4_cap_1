@@ -1,4 +1,3 @@
-# db/oracle_adapter.py
 from .database_interface import DatabaseInterface
 
 class OracleAdapter(DatabaseInterface):

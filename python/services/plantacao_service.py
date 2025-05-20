@@ -1,4 +1,3 @@
-# services/plantacao_service.py
 class PlantacaoService:
     def __init__(self, db):
         self.db = db

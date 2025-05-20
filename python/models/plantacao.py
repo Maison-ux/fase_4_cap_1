@@ -1,4 +1,3 @@
-# models/plantacao.py
 class Plantacao:
     def __init__(self, nome, localizacao, data_plantio, id_plantacao=None):
         self.id_plantacao = id_plantacao
