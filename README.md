@@ -126,10 +126,9 @@ O sistema utiliza um banco de dados PostgreSQL para armazenar todas as informaç
 
 ## 🗃 Histórico de lançamentos
 
-| Versão | Data       | Descrição                                   |
-|--------|------------|---------------------------------------------|
-| 1.0    | 20/05/2025 | Implementação do circuito de simulação com ESP32 |
-| 2.0    | 15/06/2025 | Implementação do banco de dados e operações CRUD |
+| Versão | Data       | Descrição                                                                                           |
+|--------|------------|-----------------------------------------------------------------------------------------------------|
+| 1.0    | 20/05/2025 | Implementação do circuito de simulação com ESP32 e Implementação do banco de dados e operações CRUD |
 
 ---
 
