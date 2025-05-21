@@ -58,7 +58,7 @@ Para a segunda entrega do projeto, desenvolvemos um Modelo Entidade-Relacionamen
 
 O MER serve como base para o desenvolvimento do banco de dados relacional que suportará todas as operações do sistema.
 
-![Modelo Entidade-Relacionamento](mer.png)
+![Modelo Entidade-Relacionamento](entrega_2/mer.png)
 
 #### Operações CRUD Implementadas
 
