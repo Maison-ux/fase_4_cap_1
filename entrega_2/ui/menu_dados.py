@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from python.models.dados_sensor import DadoSensor
+from entrega_2.models.dados_sensor import DadoSensor
 
 
 class MenuDados:

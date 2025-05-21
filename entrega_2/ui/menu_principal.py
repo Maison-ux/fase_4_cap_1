@@ -1,8 +1,8 @@
 import os
 
-from python.ui.menu_dados import MenuDados
-from python.ui.menu_plantacao import MenuPlantacao
-from python.ui.menu_sensor import MenuSensor
+from entrega_2.ui.menu_dados import MenuDados
+from entrega_2.ui.menu_plantacao import MenuPlantacao
+from entrega_2.ui.menu_sensor import MenuSensor
 
 
 class MenuPrincipal:

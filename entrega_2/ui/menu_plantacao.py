@@ -1,7 +1,7 @@
 import os
 from datetime import date
 
-from python.models.plantacao import Plantacao
+from entrega_2.models.plantacao import Plantacao
 
 
 class MenuPlantacao:

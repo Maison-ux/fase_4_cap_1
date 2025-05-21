@@ -1,7 +1,7 @@
 import os
 from datetime import date
 
-from python.models.sensor import Sensor
+from entrega_2.models.sensor import Sensor
 
 
 class MenuSensor:

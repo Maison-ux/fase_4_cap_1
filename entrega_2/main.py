@@ -5,7 +5,7 @@ if 'TERM' not in os.environ:
     os.environ['TERM'] = 'xterm'
 
 from db.postgres_adapter import PostgresAdapter
-from python.services.dados_sensor_service import DadoSensorService
+from entrega_2.services.dados_sensor_service import DadoSensorService
 from services.plantacao_service import PlantacaoService
 from services.sensor_service import SensorService
 from ui.menu_principal import MenuPrincipal
