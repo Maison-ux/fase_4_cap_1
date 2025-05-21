@@ -72,6 +72,10 @@ Nossa implementação inclui um sistema completo de gerenciamento de dados com o
 - **Atualização**: Correção de leituras incorretas ou anômalas
 - **Remoção**: Exclusão de dados inválidos ou não mais necessários
 
+#### Dados de Exemplo e Carga Inicial
+
+Para facilitar os testes e demonstrações, criamos o arquivo `seeds.sql` com dados iniciais para o sistema. Este script insere uma plantação de exemplo, cinco sensores associados à plantação, e dados de leituras para cada sensor baseados nas informações extraídas do arquivo `log_esp32.txt` da entrega anterior. As leituras representam um dia de operação do sistema, mostrando como a bomba de irrigação é acionada automaticamente quando todas as condições necessárias são atendidas.
+
 O sistema utiliza um banco de dados PostgreSQL para armazenar todas as informações, com uma estrutura relacional que conecta plantações, sensores e suas leituras, permitindo rastreabilidade completa e análise temporal dos dados coletados.
 
 ---
@@ -115,12 +119,16 @@ O sistema utiliza um banco de dados PostgreSQL para armazenar todas as informaç
    ```
    psql -h localhost -U postgres -d postgres -f entrega_2/sql.sql
    ```
-4. Execute a aplicação:
+4. Opcionalmente, carregue os dados de exemplo:
+   ```
+   psql -h localhost -U postgres -d postgres -f entrega_2/seeds.sql
+   ```
+5. Execute a aplicação:
    ```
    cd entrega_2
    python main.py
    ```
-5. Utilize o sistema de menus para navegar entre as operações de gerenciamento de plantações, sensores e dados.
+6. Utilize o sistema de menus para navegar entre as operações de gerenciamento de plantações, sensores e dados.
 
 ---
 
