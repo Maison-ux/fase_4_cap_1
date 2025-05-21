@@ -40,7 +40,7 @@ O sistema **aciona automaticamente uma bomba de irrigação** (simulada com um L
 
 Este projeto demonstra a aplicação de microcontroladores em sistemas agrícolas para otimizar processos de irrigação, reduzir o desperdício de água e melhorar a produtividade.
 
-![Circuito](circuito.png)
+![Circuito](entrega_1/circuito.png)
 
 ### Entrega 2: Modelo Entidade-Relacionamento e Operações CRUD
 
