@@ -44,19 +44,7 @@ Este projeto demonstra a aplicação de microcontroladores em sistemas agrícola
 
 ### Entrega 2: Modelo Entidade-Relacionamento e Operações CRUD
 
-Para a segunda entrega do projeto, desenvolvemos um Modelo Entidade-Relacionamento (MER) que representa a estrutura de dados necessária para o funcionamento completo do sistema FarmTech Solutions. O MER foi elaborado considerando os seguintes aspectos:
-
-1. **Gerenciamento de Sensores**: Armazenamento de informações sobre os sensores utilizados, incluindo tipo, localização e estado de funcionamento.
-
-2. **Registro de Leituras**: Armazenamento histórico das leituras de todos os sensores, permitindo análise temporal dos dados.
-
-3. **Controle de Irrigação**: Registro dos ciclos de irrigação, incluindo duração, quantidade de água utilizada e motivo do acionamento.
-
-4. **Gerenciamento de Culturas**: Informações sobre as culturas plantadas, incluindo necessidades específicas de nutrientes e água.
-
-5. **Relatórios e Análises**: Estrutura para geração de relatórios de eficiência e sugestões de melhorias no sistema.
-
-O MER serve como base para o desenvolvimento do banco de dados relacional que suportará todas as operações do sistema.
+Para a segunda entrega do projeto, desenvolvemos um Modelo Entidade-Relacionamento (MER) que representa a estrutura de dados necessária para o funcionamento completo do sistema FarmTech Solutions.
 
 ![Modelo Entidade-Relacionamento](entrega_2/mer.png)
 
