@@ -62,31 +62,29 @@ O MER serve como base para o desenvolvimento do banco de dados relacional que su
 
 #### Operações CRUD Implementadas
 
-Foram desenvolvidas operações CRUD (Create, Read, Update, Delete) para todas as entidades principais do sistema:
+Nossa implementação inclui um sistema completo de gerenciamento de dados com operações CRUD (Create, Read, Update, Delete) para todas as entidades principais, dividida em três módulos principais:
 
-**1. Sensores**
-- **Create**: Cadastro de novos sensores no sistema
-- **Read**: Consulta de informações sobre sensores instalados
-- **Update**: Atualização de dados como calibração e estado de funcionamento
-- **Delete**: Remoção de sensores obsoletos ou danificados
+**1. Gerenciamento de Plantações**
+- **Cadastro**: Registro de novas áreas de cultivo com nome, localização e data de plantio
+- **Listagem**: Visualização de todas as plantações cadastradas no sistema
+- **Busca**: Localização de plantações específicas por ID
+- **Edição**: Atualização de informações das plantações existentes
+- **Exclusão**: Remoção de plantações do sistema
 
-**2. Leituras de Sensores**
-- **Create**: Registro automático de novas leituras
-- **Read**: Consulta de histórico de leituras com filtros por período e tipo de sensor
-- **Update**: Correção de leituras com erro
-- **Delete**: Remoção de leituras identificadas como anômalas
+**2. Gerenciamento de Sensores**
+- **Cadastro**: Adição de novos sensores associados a plantações específicas
+- **Listagem**: Visualização de todos os sensores ou filtrados por plantação
+- **Busca**: Localização de sensores específicos por ID
+- **Edição**: Atualização de configurações e informações dos sensores
+- **Exclusão**: Remoção de sensores inativos ou defeituosos
 
-**3. Ciclos de Irrigação**
-- **Create**: Registro de novos ciclos de irrigação
-- **Read**: Consulta do histórico de irrigações
-- **Update**: Ajuste de parâmetros de ciclos de irrigação
-- **Delete**: Remoção de registros incorretos
+**3. Gerenciamento de Dados dos Sensores**
+- **Registro**: Armazenamento de novas leituras com data, hora e valores
+- **Consulta**: Visualização do histórico de leituras com filtros por sensor ou plantação
+- **Atualização**: Correção de leituras incorretas ou anômalas
+- **Remoção**: Exclusão de dados inválidos ou não mais necessários
 
-**4. Culturas**
-- **Create**: Cadastro de novas culturas e suas necessidades
-- **Read**: Consulta de informações sobre culturas cadastradas
-- **Update**: Atualização de parâmetros ideais para cada cultura
-- **Delete**: Remoção de culturas não mais utilizadas
+O sistema utiliza um banco de dados PostgreSQL para armazenar todas as informações, com uma estrutura relacional que conecta plantações, sensores e suas leituras, permitindo rastreabilidade completa e análise temporal dos dados coletados.
 
 ---
 
@@ -94,6 +92,7 @@ Foram desenvolvidas operações CRUD (Create, Read, Update, Delete) para todas a
 
 ### ✅ Pré-requisitos
 
+#### Para o Circuito (Entrega 1):
 - ESP32 DevKit
 - Sensor DHT22
 - Módulo LDR
@@ -103,13 +102,37 @@ Foram desenvolvidas operações CRUD (Create, Read, Update, Delete) para todas a
 - IDE Arduino instalada
 - Biblioteca `DHT.h` instalada
 
+#### Para o Sistema de Dados (Entrega 2):
+- Python 3.8 ou superior
+- PostgreSQL
+- Docker e Docker Compose (opcional, para execução em container)
+
 ### 🚀 Passo a passo
 
+#### Para o Circuito:
 1. Monte o circuito conforme o diagrama fornecido.
 2. Faça o upload do código `farmtech_solutions.ino` para o ESP32 utilizando a IDE Arduino.
 3. Abra o **Monitor Serial** na IDE, configurado a **115200 bps**, para visualizar os dados de sensores e o estado da bomba.
 4. Interaja com os botões para simular a presença de nutrientes e varie a luminosidade do LDR para simular diferentes níveis de pH.
 5. Observe o acionamento automático do LED conforme as condições são atendidas.
+
+#### Para o Sistema de Dados:
+1. Clone este repositório.
+2. Configure o PostgreSQL ou use Docker com o comando:
+   ```
+   cd entrega_2
+   docker-compose up -d
+   ```
+3. Execute o script SQL para criar as tabelas:
+   ```
+   psql -h localhost -U postgres -d postgres -f entrega_2/sql.sql
+   ```
+4. Execute a aplicação:
+   ```
+   cd entrega_2
+   python main.py
+   ```
+5. Utilize o sistema de menus para navegar entre as operações de gerenciamento de plantações, sensores e dados.
 
 ---
 
@@ -117,7 +140,7 @@ Foram desenvolvidas operações CRUD (Create, Read, Update, Delete) para todas a
 
 | Versão | Data       | Descrição                                   |
 |--------|------------|---------------------------------------------|
-| 1.0    | 20/05/2025 | Primeira versão funcional do sistema FarmTech Solutions |
+| 1.0    | 20/05/2025 | Implementação do circuito de simulação com ESP32 |
 | 2.0    | 15/06/2025 | Implementação do banco de dados e operações CRUD |
 
 ---
@@ -125,5 +148,3 @@ Foram desenvolvidas operações CRUD (Create, Read, Update, Delete) para todas a
 ## 📋 Licença
 
 MODELO GIT FIAP por FIAP está licenciado sob a licença [Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/).
-
-
