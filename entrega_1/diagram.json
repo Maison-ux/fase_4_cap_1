@@ -3,13 +3,7 @@
   "author": "Italo Domingues",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "board-esp32-devkit-c-v4",
-      "id": "esp",
-      "top": 163.2,
-      "left": 139.24,
-      "attrs": {}
-    },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 163.2, "left": 139.24, "attrs": {} },
     {
       "type": "wokwi-pushbutton",
       "id": "btn1",
@@ -40,6 +34,13 @@
       "top": 284.6,
       "left": 28.8,
       "attrs": { "color": "yellow", "xray": "1" }
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": -51.2,
+      "left": 360.8,
+      "attrs": { "pins": "i2c" }
     }
   ],
   "connections": [
@@ -57,7 +58,10 @@
     [ "led1:C", "esp:GND.2", "black", [ "v0" ] ],
     [ "esp:GND.3", "btn1:2.r", "black", [ "h124.8", "v76.6" ] ],
     [ "btn2:2.r", "esp:GND.1", "black", [ "h0" ] ],
-    [ "btn2:1.r", "esp:14", "green", [ "v0" ] ]
+    [ "btn2:1.r", "esp:14", "green", [ "v0" ] ],
+    [ "lcd1:SDA", "esp:21", "green", [ "h0" ] ],
+    [ "lcd1:SCL", "esp:22", "green", [ "h0" ] ],
+    [ "esp:GND.2", "esp:GND.1", "black", [ "v0" ] ]
   ],
   "dependencies": {}
 }

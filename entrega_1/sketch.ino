@@ -1,80 +1,124 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 #include "DHT.h"
 
-// --- Definição dos Pinos ---
-#define PINO_FOSFORO 14    // Botão representando a presença de fósforo
-#define PINO_POTASSIO 4    // Botão representando a presença de potássio
-#define PINO_LDR 36        // Pino analógico simulando a leitura de pH (com LDR)
-#define PINO_DHT 5         // Sensor de umidade e temperatura DHT22 no pino digital 5
-#define PINO_RELE 18       // Pino conectado ao relé ou LED que simula a bomba de irrigação
+// --- Definição de Pinos ---
+constexpr uint8_t PINO_FOSFORO = 14;
+constexpr uint8_t PINO_POTASSIO = 4;
+constexpr uint8_t PINO_LDR = 36;
+constexpr uint8_t PINO_DHT = 5;
+constexpr uint8_t PINO_RELE = 18;
 
-// --- Configuração do Sensor DHT ---
+// --- Sensor DHT ---
 #define DHTTYPE DHT22
-DHT dht(PINO_DHT, DHTTYPE);  // Cria um objeto DHT para interagir com o sensor
+DHT dht(PINO_DHT, DHTTYPE);
+
+// --- LCD I2C ---
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // Endereço padrão I2C 0x27
+
+// --- Variáveis Globais ---
+bool fosforo = false;
+bool potassio = false;
+float umidade = 0.0;
+float ph = 7.0;
+bool bombaLigada = false;
 
 void setup() {
-  Serial.begin(115200);  // Inicializa a comunicação serial para monitoramento
+  Serial.begin(115200);
 
-  // Configura os botões como entradas com resistor de pull-up ativado
   pinMode(PINO_FOSFORO, INPUT_PULLUP);
   pinMode(PINO_POTASSIO, INPUT_PULLUP);
-
-  // Configura o pino do relé (LED) como saída
   pinMode(PINO_RELE, OUTPUT);
 
-  // Inicializa o sensor DHT
   dht.begin();
+
+  Wire.begin(21, 22);  // SDA=21, SCL=22
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Iniciando...");
+  delay(1000);
 }
 
-// Função que simula a leitura do pH através do valor analógico do LDR
-float ler_ph_simulado() {
-  int valor_analogico = analogRead(PINO_LDR);  // Lê valor entre 0 e 4095
-  return (valor_analogico / 4095.0) * 14.0;    // Converte para escala de pH (0 a 14)
+// --- Função: Simula leitura de pH ---
+float lerPhSimulado() {
+  int leituraLDR = analogRead(PINO_LDR);
+  return (leituraLDR / 4095.0f) * 14.0f;
 }
 
+// --- Função: Lê todos os sensores ---
+void lerSensores() {
+  fosforo = !digitalRead(PINO_FOSFORO);
+  potassio = !digitalRead(PINO_POTASSIO);
+
+  float leituraUmidade = dht.readHumidity();
+  umidade = isnan(leituraUmidade) ? -1.0f : leituraUmidade;
+
+  ph = lerPhSimulado();
+}
+
+// --- Função: Define se bomba será ativada ---
+bool deveAtivarBomba() {
+  bool nutriente = fosforo || potassio;
+  bool phOk = (ph >= 5.5f && ph <= 7.5f);
+  bool umidadeBaixa = (umidade > 0 && umidade < 40.0f);
+  return nutriente && phOk && umidadeBaixa;
+}
+
+// --- Função: Liga/desliga bomba ---
+void atualizarRele(bool ligar) {
+  digitalWrite(PINO_RELE, ligar ? HIGH : LOW);
+  bombaLigada = ligar;
+}
+
+// --- Função: Mostra dados no Serial + Plotter ---
+void exibirSerial() {
+  // Leitura humana
+  Serial.print("[Sensores] Fósforo: ");
+  Serial.print(fosforo);
+  Serial.print(" | Potássio: ");
+  Serial.print(potassio);
+  Serial.print(" | pH: ");
+  Serial.print(ph, 2);
+  Serial.print(" | Umidade: ");
+  Serial.print(umidade, 1);
+  Serial.print("% | Bomba: ");
+  Serial.println(bombaLigada ? "Ligada" : "Desligada");
+
+  // Linha em branco para separar visualmente
+  Serial.println();
+
+  // Plotter
+  Serial.print("Umidade: "); Serial.print(umidade, 2);
+  Serial.print("\t");
+  Serial.print("pH: "); Serial.print(ph, 2);
+  Serial.print("\t");
+  Serial.print("Bomba: "); Serial.println(bombaLigada ? 1 : 0);
+}
+
+// --- Função: Mostra dados no LCD ---
+void exibirLCD() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Umi:");
+  lcd.print(umidade, 0);
+  lcd.print("% pH:");
+  lcd.print(ph, 1);
+
+  lcd.setCursor(0, 1);
+  lcd.print("Bomba: ");
+  lcd.print(bombaLigada ? "Ligada" : "Deslig.");
+}
+
+// --- Loop principal ---
 void loop() {
-  // --- Leitura dos Botões ---
-  // Como os botões estão com PULLUP, o valor lido é invertido: LOW significa pressionado.
-  bool fosforo = !digitalRead(PINO_FOSFORO);   // true se botão de fósforo estiver pressionado
-  bool potassio = !digitalRead(PINO_POTASSIO);// true se botão de potássio estiver pressionado
+  lerSensores();
+  bool ativar = deveAtivarBomba();
+  atualizarRele(ativar);
 
-  // --- Leitura da Umidade ---
-  float umidade = dht.readHumidity();          // Lê a umidade do ar
-  if (isnan(umidade)) {                        // Se a leitura falhar, evita usar valor inválido
-    umidade = -1;                              // Valor inválido para indicar erro
-  }
+  exibirSerial();
+  exibirLCD();
 
-  // --- Leitura do pH Simulado ---
-  float ph = ler_ph_simulado();                // Simula a leitura de pH com o LDR
-
-  // --- Lógica para Acionamento da Bomba ---
-
-  // Verifica se há algum nutriente presente (fósforo ou potássio)
-  bool nutriente_presente = fosforo || potassio;
-
-  // Verifica se o pH está dentro da faixa adequada (entre 5.5 e 7.5)
-  bool ph_adequado = (ph >= 5.5 && ph <= 7.5);
-
-  // Verifica se a umidade está baixa (abaixo de 40%)
-  bool umidade_baixa = (umidade > 0 && umidade < 40);
-
-  // A bomba só será ativada se:
-  // 1. Houver algum nutriente presente.
-  // 2. O pH estiver adequado.
-  // 3. A umidade estiver baixa.
-  bool ativar_bomba = nutriente_presente && ph_adequado && umidade_baixa;
-
-  // --- Controle da Bomba ---
-  // Liga ou desliga o relé (ou LED) conforme a necessidade de irrigação
-  digitalWrite(PINO_RELE, ativar_bomba ? HIGH : LOW);
-
-  // --- Monitoramento via Serial ---
-  // Exibe no monitor serial os valores das leituras e o estado da bomba
-  Serial.print("Fósforo: "); Serial.print(fosforo);
-  Serial.print(" | Potássio: "); Serial.print(potassio);
-  Serial.print(" | pH: "); Serial.print(ph, 2);
-  Serial.print(" | Umidade: "); Serial.print(umidade, 1);
-  Serial.print("% | Bomba: "); Serial.println(ativar_bomba ? "Ligada" : "Desligada");
-
-  // Aguarda 2 segundos antes de repetir o ciclo
   delay(2000);
 }

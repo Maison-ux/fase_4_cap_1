@@ -3,3 +3,5 @@
 
 # Automatically added based on includes:
 DHT sensor library
+
+LiquidCrystal I2C
