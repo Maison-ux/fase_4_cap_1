@@ -81,13 +81,6 @@ Essas melhorias levam o sistema a um novo nível, com inteligência, autonomia e
 2. Certifique-se de ter os dados em `dataset_balanceado.csv` ou carregue via banco.
 3. Execute o dashboard com: streamlit run dashboard.py
 
-#### Para o Circuito no Wokwi:
-1. Acesse o projeto no Wokwi via link do grupo.
-2. Verifique a conexão do display LCD I2C nos pinos SDA/SCL.
-3. Suba o código otimizado no ESP32.
-4. Abra o **Serial Monitor** e **Serial Plotter** para acompanhar as leituras em tempo real.
-5. Interaja com os botões para alterar os valores dos sensores e observe a ativação da bomba e as leituras no LCD.
-
 ---
 
 ## 🖼️ Imagens do Projeto
