@@ -24,7 +24,7 @@ André Godoi Chiovato
 
 ## 📜 Descrição
 
-### Entrega 3: Inteligência Artificial, Dashboard e Otimizações
+### Inteligência Artificial, Dashboard e Otimizações
 
 Na Fase 4, o projeto FarmTech Solutions foi aprimorado com recursos de Machine Learning, visualização interativa e melhorias na simulação do hardware:
 
