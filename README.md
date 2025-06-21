@@ -39,6 +39,14 @@ Essas melhorias levam o sistema a um novo nível, com inteligência, autonomia e
 
 ---
 
+## 📹 Vídeo de Demonstração
+
+[![Vídeo de Demonstração do Projeto](https://img.youtube.com/vi/P2q3aN5mBUo/0.jpg)](https://youtu.be/P2q3aN5mBUo)
+
+[Clique aqui para assistir ao vídeo no YouTube](https://youtu.be/P2q3aN5mBUo)
+
+---
+
 ## 🔧 Como executar o projeto
 
 ### ✅ Pré-requisitos
